@@ -1,6 +1,6 @@
 #!/bin/sh
 API_NAME=LambdaSimpleProxy
-FUNCTION_NAME=GetStartedLambdaProxyIntegration
+FUNCTION_NAME=GetStartedLambdaProxyIntegration2
 AWS_ACCOUNT_ID=091219481881
 AWS_REGION=us-east-1
 STATEMENT1_ID=hello-apigateway-invoke-permissions
