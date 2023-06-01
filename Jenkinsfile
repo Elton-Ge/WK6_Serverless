@@ -6,9 +6,9 @@ pipeline {
         lambdaName      = "GetStartedLambdaProxyIntegration"
         lambdaFileName  = "*.mjs"
         lambdaRuntime   = "nodejs18.x"
-        accountID       = "026559016816"
+        accountID       = "091219481881"
         dynamoTable     = "HelloWorldTable"
-        AWS_Creds       = "aws_jr_william"
+        AWS_Creds       = "aws_jr_elton"
     }
 
     parameters {
@@ -26,7 +26,7 @@ pipeline {
         stage('Create Role') {
             when { expression{ return params.blCreateIAMRole } }
             steps {
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     // Create Lambda role
                     sh '''
                         aws iam create-role \
@@ -55,7 +55,7 @@ pipeline {
             when { expression{ return params.blCreateLambda } }
             steps{
                 echo 'Create a deployment package && Create a Lambda function' 
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     sh """
                        zip function.zip $lambdaFileName
                        
@@ -70,7 +70,7 @@ pipeline {
             when { expression{ return params.blUpdateLambdaCode } }
             steps{
                 echo 'Create a deployment package && Update the Lambda function'
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     sh '''
                        zip function.zip $lambdaFileName
                        
@@ -86,7 +86,7 @@ pipeline {
             when { expression{ return params.blUpdateLambdaConf } }
             steps{
                 echo 'Create a deployment package && Update the Lambda function'
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     sh """
                        aws lambda update-function-configuration --function-name $lambdaName \
                         --handler ${params.lambdaHandler} 
@@ -97,7 +97,7 @@ pipeline {
         stage('Test Lambda') {
             when { expression{ return params.blTestLambda } }
             steps{
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     echo 'List lambda functions'
                     sh 'aws lambda list-functions --max-items 10'
                     sh 'aws lambda get-function --function-name $lambdaName'
@@ -118,7 +118,7 @@ pipeline {
             when { expression{ return params.blCreateDynamo } }
             steps{
                 echo 'Create a DynamoDB'
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     sh '''
                        aws dynamodb create-table --table-name $dynamoTable \
                         --attribute-definitions AttributeName=id,AttributeType=N AttributeName=name,AttributeType=S \
@@ -145,7 +145,7 @@ pipeline {
         stage('Delete Resources'){
             when { expression{ return params.blDeleteLambda } }
             steps{
-                withAWS(credentials: "$AWS_Creds", region: 'ap-southeast-2') {
+                withAWS(credentials: "$AWS_Creds", region: 'us-east-1') {
                     echo "Deleting lambda $lambdaName and role $lambdaRole"
                     sh 'aws lambda delete-function --function-name $lambdaName'
                     sh """
