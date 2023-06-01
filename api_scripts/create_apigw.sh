@@ -1,5 +1,5 @@
 #!/bin/sh
-API_NAME=LambdaSimpleProxy
+API_NAME=LambdaSimpleProxy2
 FUNCTION_NAME=GetStartedLambdaProxyIntegration2
 AWS_ACCOUNT_ID=091219481881
 AWS_REGION=us-east-1
