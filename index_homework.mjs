@@ -94,7 +94,7 @@ export const handler = async (event) => {
   console.log("response: " + JSON.stringify(response));
 
   let params = {
-    TableName: "HelloWorldTable",
+    TableName: "HelloWorldTable2",
     Item: {
       id: { N: new Date().valueOf().toString() },
       name: { S: name },

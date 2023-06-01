@@ -7,7 +7,7 @@ pipeline {
         lambdaFileName  = "*.mjs"
         lambdaRuntime   = "nodejs18.x"
         accountID       = "091219481881"
-        dynamoTable     = "HelloWorldTable"
+        dynamoTable     = "HelloWorldTable2"
         AWS_Creds       = "aws_jr_elton"
     }
 

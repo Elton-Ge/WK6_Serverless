@@ -42,7 +42,7 @@ export const handler = async (event) => {
     },
     FilterExpression: "#NM = :a",
     ProjectionExpression: "#NM,city",
-    TableName: "HelloWorldTable",
+    TableName: "HelloWorldTable2",
   };
   console.log("params: ", params);
   const ScanNameCommand = new ScanCommand(params);
